@@ -29,38 +29,38 @@ pipeline = stimela.Recipe("Simulation Example",     # Recipe name
 
 #pipeline.JOB_TYPE = "docker"
 
-# 1: Make empty MS
-pipeline.add("cab/simms",                   # Executor image to start container from
-             "simms_example",               # Container name
-             {  # Parameters to parse to executor container
-                "msname":   MS,
-                "telescope":   "meerkat",              # Telescope name
-                "direction":   "J2000,0deg,-30deg",    # Phase tracking centre of observation
-                "synthesis":   2,                  # Synthesis time of observation
-                "dtime":   30,                      # Integration time in seconds
-                "freq0":   "750MHz",               # Start frequency of observation
-                "dfreq":   "1MHz",                 # Channel width
-                "nchan":   16                       # Number of channels
-             },
-             label="Creating MS",                       # Process label
-             cpus=2.5,
-             memory_limit="2gb")
-# 2
-pipeline.add("cab/casa_listobs", "obsinfo",
-        {
-            "vis" : MS,
-            "listfile" : MS + "-obsinfo.txt",
-            "overwrite": True,
-            }, 
-        label="obsinfo:: Observation information")
-
+## 1: Make empty MS
+#pipeline.add("cab/simms",                   # Executor image to start container from
+#             "simms_example",               # Container name
+#             {  # Parameters to parse to executor container
+#                "msname":   MS,
+#                "telescope":   "meerkat",              # Telescope name
+#                "direction":   "J2000,0deg,-30deg",    # Phase tracking centre of observation
+#                "synthesis":   2,                  # Synthesis time of observation
+#                "dtime":   30,                      # Integration time in seconds
+#                "freq0":   "750MHz",               # Start frequency of observation
+#                "dfreq":   "1MHz",                 # Channel width
+#                "nchan":   16                       # Number of channels
+#             },
+#             label="Creating MS",                       # Process label
+#             cpus=2.5,
+#             memory_limit="2gb")
+## 2
+#pipeline.add("cab/casa_listobs", "obsinfo",
+#        {
+#            "vis" : MS,
+#            "listfile" : MS + "-obsinfo.txt",
+#            "overwrite": True,
+#            }, 
+#        label="obsinfo:: Observation information")
+#
 # 3: Simulate visibilities into it
 pipeline.add("cab/simulator",
              "simulator_example",
              {
                  "msname":   MS,
                  "skymodel":   LSM,                    # Sky model to simulate into MS
-                 "addnoise":   True,                   # Add thermal noise to visibilities
+                 "addnoise":   False,                   # Add thermal noise to visibilities
                  "column":   "DATA",
                  "Gjones": True, # Simulated data will be saved in this column
                  "sefd":   831,                    # Compute noise from this SEFD

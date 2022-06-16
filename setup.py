@@ -9,11 +9,11 @@ import glob
 requirements = ["pyyaml",
                 "nose>=1.3.7",
                 "future-fstrings",
-                "scabha"
+                "scabha<=0.3.2"
                 ],
 
 PACKAGE_NAME = "stimela"
-__version__ = "1.7.4"
+__version__ = "1.7.5"
 build_root = os.path.dirname(__file__)
 
 def readme():
@@ -25,6 +25,7 @@ setup(name=PACKAGE_NAME,
       version=__version__,
       description="Dockerized radio interferometry scripting framework",
       long_description=readme(),
+      long_description_content_type="text/x-rst",
       author="Sphesihle Makhathini & RATT",
       author_email="sphemakh@gmail.com",
       url="https://github.com/ratt-ru/Stimela",
