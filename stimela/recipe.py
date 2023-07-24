@@ -291,7 +291,10 @@ class StimelaJob(object):
 
         if self.jtype == "singularity":
             simage = _cab.base.replace("/", "_")
-            cont.image = '{0:s}/{1:s}_{2:s}{3:s}'.format(singularity_image_dir,
+            if '/cvmfs/unpacked.cern.ch' in singularity_image_dir:
+                cont.image = '{0:s}/{1:s}'.format(singularity_image_dir, image_url)
+            else:
+                cont.image = '{0:s}/{1:s}_{2:s}{3:s}'.format(singularity_image_dir,
                     simage, self.tag, singularity.suffix)
             cont.image = os.path.abspath(cont.image)
             if not os.path.exists(cont.image):
